@@ -1,16 +1,17 @@
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../assets/Logo.png"
 import { ThreeDots } from 'react-loader-spinner'
-
+import InformationUser from "../contexts/auth"
 
 export default function LoginPage() {
     const navegation = useNavigate()
     const [disable, setDisable] = useState(false)
-    const [dadosUserLogado, setDadosUserLogado] = useState({})
+    const {setInfo} = useContext(InformationUser)
     const [dots, setDots] = useState(false)
+
     const [login, setLogin] = useState({
         email: '',
         password: ''
@@ -26,7 +27,7 @@ export default function LoginPage() {
         const promise = axios.post(url, login)
         promise.then((success)=>{
             navegation('/hoje')
-            setDadosUserLogado(success.data)
+            setInfo(success.data)
         })
         promise.catch((error)=>{
             setDisable(false)
@@ -98,6 +99,7 @@ const Loading =styled.div`
 `
 const Login = styled.div`
     background-color: #FFF;
+    height: 100vh;
     img{
         margin: 68px 0px 32px 0px;
     }  

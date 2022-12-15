@@ -113,6 +113,8 @@ const Loading =styled.div`
 
 `
 const Login = styled.div`
+    background-color: #FFF;
+    height: 100vh;
     img{
         margin: 68px 0px 32px 0px;
     }  

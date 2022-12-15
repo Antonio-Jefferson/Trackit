@@ -1,13 +1,15 @@
 import styled from "styled-components"
 import logoHeader from "../assets/TrackIt.png"
-import profile from "../assets/profile.png"
+import { useContext } from "react"
+import InformationUser from "../contexts/auth"
 export default function Header() {
+    const {info} = useContext(InformationUser)
     return (
         <HeaderPage>
             <div>
                 <img src={logoHeader} />
                 <Profile>
-                    <img src={profile} />
+                    <img src={info.image} />
                 </Profile>
             </div>
         </HeaderPage>
