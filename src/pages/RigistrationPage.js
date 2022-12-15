@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../assets/Logo.png"
 export default function RigistrationPage(){
@@ -9,7 +10,7 @@ export default function RigistrationPage(){
             <input type="password" placeholder="senha"/>
             <input type="text" placeholder="nome"/>
             <input type="url" placeholder="foto"/>
-            <button type="submit">Entrar</button>
+            <Link to={'/habitos'}><button type="submit">Entrar</button></Link>
         </FormeLogin >
         <p>Não tem uma conta? Cadastre-se!</p>
     </Login>

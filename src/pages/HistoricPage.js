@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Header from "../components/Header";
+import Footer from "../components/Footer"
 
-export default function Historic(){
+export default function HistoricPage(){
     return(
         <>
             <Header/>
@@ -9,10 +10,11 @@ export default function Historic(){
                 <h3>Histórico</h3>
                 <p>Em breve você poderá ver o histórico <br/> dos seus hábitos aqui!</p>
             </MainHistoric>
+            <Footer/>
         </>
     )
 }
-const MainHistoric = styled.dic`
+const MainHistoric = styled.div`
     margin-top: 98px;
     padding: 12px;
     h3{

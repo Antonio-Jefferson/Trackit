@@ -1,11 +1,13 @@
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 export default function Footer(){
+
     return(
         <BoxFooter>
-            <p>Hábitos</p>
-            <div>Hoje</div>
-            <p>Histórico</p>
+            <Link to={'/habitos'}><p>Hábitos</p></Link>
+            <div><Link to={'/hoje'}><span>Hoje</span></Link></div>
+            <Link to={'/historico'}><p>Histórico</p></Link>
         </BoxFooter>
     )
 }
@@ -26,7 +28,9 @@ const BoxFooter = styled.div`
     color: #52B6FF;
     font-weight: 400;
     font-size: 17.976px;
-
+    span{
+        color: #fff;
+    }
     div{
         position: absolute;
         width: 91px;

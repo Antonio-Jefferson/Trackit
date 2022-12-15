@@ -2,6 +2,7 @@
 import styled from "styled-components"
 import CardHobit from "../components/CardHobit"
 import Header from "../components/Header"
+import Footer from "../components/Footer"
 export default function TodayPage() {
     return (
         <>
@@ -17,6 +18,7 @@ export default function TodayPage() {
                     <CardHobit/>
                 </div>
             </MainToday>
+            <Footer/>
         </>
     )
 }

@@ -9,7 +9,13 @@ const GlobalStyled = createGlobalStyle`
         border: none;
     }
     body{
-        background-color: #E5E5E5;;
+        background-color: #E5E5E5;
+        
+    }
+
+    a{
+        text-decoration: none;
+        color: #52B6FF;
     }
 `
 export default GlobalStyled;
