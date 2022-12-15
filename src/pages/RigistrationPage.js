@@ -1,23 +1,75 @@
-import { Link } from "react-router-dom"
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../assets/Logo.png"
-export default function RigistrationPage(){
-    return(
+import axios from "axios"
+export default function RigistrationPage() {
+    const navegation = useNavigate()
+    const [registration, setRegistration] = useState({
+        email: '',
+        name: '',
+        image: '',
+        password: ''
+    })
+  
+
+    function creteAccount(event, key) {
+        setRegistration({ ...registration, [key]: event.target.value })
+    }
+    
+    function rigistrationAccount(e) {
+        e.preventDefault()
+        const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+        const promise = axios.post(url, registration)
+        promise.then(() => 
+            navegation('/')
+        )
+        promise.catch((error)=>{
+            console.log(error)
+        })
+    }
+
+    return (
         <Login>
-        <img src={logo}/>
-        <FormeLogin >
-            <input type="email" placeholder="email"/>
-            <input type="password" placeholder="senha"/>
-            <input type="text" placeholder="nome"/>
-            <input type="url" placeholder="foto"/>
-            <Link to={'/habitos'}><button type="submit">Entrar</button></Link>
-        </FormeLogin >
-        <p>Não tem uma conta? Cadastre-se!</p>
-    </Login>
+            <img src={logo} />
+            <FormeLogin onSubmit={(e) => rigistrationAccount(e)}>
+                <input
+                    type="email"
+                    placeholder="email"
+                    onChange={(event) => creteAccount(event, 'email')}
+                    value={registration.email}
+                    required
+                />
+
+                <input
+                    type="password"
+                    placeholder="senha"
+                    onChange={(event) => creteAccount(event, 'password')}
+                    value={registration.password}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="nome"
+                    onChange={(event) => creteAccount(event, 'name')}
+                    value={registration.name}
+                    required
+                />
+                <input
+                    type="url"
+                    placeholder="foto"
+                    onChange={(event) => creteAccount(event, 'image')}
+                    value={registration.image}
+                    required
+                />
+                <button type="submit">Fazer cadastro</button>
+            </FormeLogin >
+            <Link to={'/'}><p>Já possou uma conta? Faça login!</p></Link>
+        </Login>
     )
 }
 
-const FormeLogin = styled.div`
+const FormeLogin = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,14 +1,21 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import logo  from "../assets/Logo.png"
 export default function LoginPage(){
+    const navegation = useState()
+    const [login, setLogin] = useState({
+        email:'',
+        password: ''
+    })
+    
     return(
         <Login>
             <img src={logo}/>
             <FormeLogin >
                 <input type="email" placeholder="email"/>
                 <input type="password" placeholder="senha"/>
-                <Link to={'/hoje'}><button type="submit">Entrar</button></Link>
+                <button type="submit">Entrar</button>
             </FormeLogin >
            <Link to={'/cadastro'}><p>Não tem uma conta? Cadastre-se!</p></Link> 
         </Login>
