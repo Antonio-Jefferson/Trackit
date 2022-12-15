@@ -1,29 +1,69 @@
+import axios from "axios"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import logo  from "../assets/Logo.png"
-export default function LoginPage(){
-    const navegation = useState()
+import logo from "../assets/Logo.png"
+import { ThreeDots } from 'react-loader-spinner'
+
+
+export default function LoginPage() {
+    const navegation = useNavigate()
+    const [disable, setDisable] = useState(false)
+    const [dadosUserLogado, setDadosUserLogado] = useState({})
+    const [dots, setDots] = useState(false)
     const [login, setLogin] = useState({
-        email:'',
+        email: '',
         password: ''
     })
-    
-    return(
+    function dadosUser(e, key) {
+        setLogin({ ...login, [key]: e.target.value })
+    }
+    function LogarUser(e) {
+        e.preventDefault()
+        setDisable(true)
+        setDots(true)
+        const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
+        const promise = axios.post(url, login)
+        promise.then((success)=>{
+            navegation('/hoje')
+            setDadosUserLogado(success.data)
+        })
+        promise.catch((error)=>{
+            setDisable(false)
+            alert('ERROR: ' + error)
+        })
+    }
+
+    return (
         <Login>
-            <img src={logo}/>
-            <FormeLogin >
-                <input type="email" placeholder="email"/>
-                <input type="password" placeholder="senha"/>
-                <button type="submit">Entrar</button>
+            <img src={logo} />
+            <FormeLogin onSubmit={(e) => LogarUser(e)} >
+                <input
+                    type="email"
+                    placeholder="email"
+                    onChange={(e)=> dadosUser(e, 'email')}
+                    value={login.email}
+                    disabled={disable}
+                    required
+                />
+
+                <input
+                    type="password"
+                    placeholder="senha"
+                    onChange={(e)=> dadosUser(e, 'password')}
+                    value={login.password}
+                    disabled={disable}
+                    required
+                />
+                <button disabled={disable} type="submit" > <Loading>{dots? <ThreeDots color="#fff"  height="20"/> : 'Entrar'}</Loading></button>
             </FormeLogin >
-           <Link to={'/cadastro'}><p>Não tem uma conta? Cadastre-se!</p></Link> 
+            <Link to={'/cadastro'}><p>Não tem uma conta? Cadastre-se!</p></Link>
         </Login>
     )
 }
 
 
-const FormeLogin = styled.div`
+const FormeLogin = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,6 +79,7 @@ const FormeLogin = styled.div`
         
     }
     button{
+        position: relative;
         width: 303px;
         height: 45px;
 
@@ -49,7 +90,14 @@ const FormeLogin = styled.div`
         border-radius: 5px;
     }
 `
+const Loading =styled.div`
+    position: absolute;
+    left: 115px;
+    top: 8px;
+
+`
 const Login = styled.div`
+    background-color: #FFF;
     img{
         margin: 68px 0px 32px 0px;
     }  

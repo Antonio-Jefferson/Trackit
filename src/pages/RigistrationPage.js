@@ -3,8 +3,12 @@ import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../assets/Logo.png"
 import axios from "axios"
+import { ThreeDots } from 'react-loader-spinner'
+
 export default function RigistrationPage() {
     const navegation = useNavigate()
+    const [dots, setDots] = useState(false)
+    const [disable, setDisable] = useState(false)
     const [registration, setRegistration] = useState({
         email: '',
         name: '',
@@ -19,13 +23,15 @@ export default function RigistrationPage() {
     
     function rigistrationAccount(e) {
         e.preventDefault()
+        setDisable(true)
+        setDots(true)
         const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
         const promise = axios.post(url, registration)
         promise.then(() => 
             navegation('/')
         )
         promise.catch((error)=>{
-            console.log(error)
+            alert('ERROR: ' + error)
         })
     }
 
@@ -38,6 +44,7 @@ export default function RigistrationPage() {
                     placeholder="email"
                     onChange={(event) => creteAccount(event, 'email')}
                     value={registration.email}
+                    disabled={disable}
                     required
                 />
 
@@ -46,6 +53,7 @@ export default function RigistrationPage() {
                     placeholder="senha"
                     onChange={(event) => creteAccount(event, 'password')}
                     value={registration.password}
+                    disabled={disable}
                     required
                 />
                 <input
@@ -53,6 +61,7 @@ export default function RigistrationPage() {
                     placeholder="nome"
                     onChange={(event) => creteAccount(event, 'name')}
                     value={registration.name}
+                    disabled={disable}
                     required
                 />
                 <input
@@ -60,11 +69,12 @@ export default function RigistrationPage() {
                     placeholder="foto"
                     onChange={(event) => creteAccount(event, 'image')}
                     value={registration.image}
+                    disabled={disable}
                     required
                 />
-                <button type="submit">Fazer cadastro</button>
+                  <button disabled={disable} type="submit" > <Loading>{dots? <ThreeDots color="#fff"  height="20"/> : 'Cadastrar'}</Loading></button>
             </FormeLogin >
-            <Link to={'/'}><p>Já possou uma conta? Faça login!</p></Link>
+            <Link to={'/'}><p>Já tem uma conta? Faça login!</p></Link>
         </Login>
     )
 }
@@ -85,6 +95,7 @@ const FormeLogin = styled.form`
         
     }
     button{
+        position: relative;
         width: 303px;
         height: 45px;
 
@@ -94,6 +105,12 @@ const FormeLogin = styled.form`
         background: #52B6FF;
         border-radius: 5px;
     }
+`
+const Loading =styled.div`
+    position: absolute;
+    left: 105px;
+    top: 8px;
+
 `
 const Login = styled.div`
     img{
