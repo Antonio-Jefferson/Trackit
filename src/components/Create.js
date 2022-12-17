@@ -1,15 +1,87 @@
+
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components"
 import week from "../constants/constants"
-export default function Create() {
+import axios from 'axios'
+import InformationUser from "../contexts/auth";
+import { ThreeDots } from 'react-loader-spinner'
+
+export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHabits, setRotate, rotate}) {
+    const [nameHabit, setNameHabit] = useState('')
+    const [disable, setDisable] = useState(false)
+    const { info } = useContext(InformationUser)
+    const [dots, setDots] = useState(false)
+
+
+    function cancel() {
+        setRender(false)
+    }
+
+    function selectedWeekDay(id) {
+        if (idsWeekDay.includes(id)) {
+            let newArr = idsWeekDay.filter((e) => e !== id);
+            setIdsWeekDay(newArr)
+        } else {
+            const arr = [...idsWeekDay, id]
+            setIdsWeekDay(arr)
+        }
+
+    }
+    useEffect(() => {
+        const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
+        const config = { headers: { Authorization: `Bearer ${info.token}` } }
+        const promise = axios.get(url, config);
+        promise.then((succss) => {
+            console.log(succss.data)
+            setListHabits(succss.data)
+        })
+        promise.catch((error) => console.log('Erro: ' + error))
+    }, [rotate])
+
+    function registrationHabit() {
+        if (idsWeekDay.length !== 0 && nameHabit !== "") {
+            setDisable(true)
+            setDots(true)
+            const objHabit = {
+                name: nameHabit,
+                days: idsWeekDay
+            }
+            const config = {
+                headers: { Authorization: `Bearer ${info.token}` }
+            }
+            const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
+            const promise = axios.post(URL, objHabit, config);
+            promise.then((succss) => {
+                setDisable(false)
+                setDots(false)
+                setNameHabit('')
+                setIdsWeekDay([])
+                setRotate(!rotate)
+            })
+            promise.catch((error) => {
+                alert('ERROR: ' + error.response.data.message)
+            })
+        } else {
+            alert('Por favor prencha todos os campos')
+        }
+
+    }
+
     return (
         <ConteinerCreate>
-            <input type="text" placeholder="nome do hábito" />
+            <input
+                type="text"
+                placeholder="nome do hábito"
+                onChange={(e) => setNameHabit(e.target.value)}
+                value={nameHabit}
+                disabled={disable}
+            />
             <BoxDaysWeek>
-                {week.map((d)=> <p>{d}</p>)}
+                {week.map((d, id) => <button className={idsWeekDay.includes(id) ? 'selected' : 'available'} onClick={() => selectedWeekDay(id)} key={id} >{d}</button>)}
             </BoxDaysWeek>
             <BoxBtns>
-                <button>Cancelar</button>
-                <button>Salvar</button>
+                <button onClick={cancel}>Cancelar</button>
+                <button onClick={registrationHabit}>{dots ? <ThreeDots color="#fff" width="40" height="20" /> : 'Salvar'}</button>
             </BoxBtns>
         </ConteinerCreate>
     )
@@ -60,17 +132,23 @@ const BoxDaysWeek = styled.div`
     display: flex;
     gap: 4px;
     margin-bottom: 29px;
-    p{
+    .selected{
+        background-color: #000;
+        color: #fff;
+    }
+    .available{
+        background-color:#fff;
+        color: #DBDBDB;
+    }
+    button{
         width: 30px;
         height: 30px;
 
-        background: #FFFFFF;
+       
         border: 1px solid #D5D5D5;
         border-radius: 5px;
         font-style: normal;
         font-weight: 400;
         font-size: 19.976px;
-
-        color: #DBDBDB;
     }
 `

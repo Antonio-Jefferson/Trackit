@@ -31,7 +31,9 @@ export default function RigistrationPage() {
             navegation('/')
         )
         promise.catch((error)=>{
-            alert('ERROR: ' + error)
+            alert('ERROR: ' + error.response.data.message)
+            setDisable(false)
+            setDots(false)
         })
     }
 

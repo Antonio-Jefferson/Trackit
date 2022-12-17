@@ -1,16 +1,30 @@
+import axios from "axios";
+import { useContext } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import styled from "styled-components";
 import week from "../constants/constants"
-export default function Hobit() {
+import InformationUser from "../contexts/auth";
+
+export default function Hobit({elements, setRotate, rotate}) {
+    const {info} = useContext(InformationUser)
+   function isDelete(isID){
+    const config = {
+        headers: { Authorization: `Bearer ${info.token}` }
+    }
+    const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${isID}`
+    const promise = axios.delete(url, config)
+    promise.then((succss)=> setRotate(!rotate))
+    promise.catch((error)=> console.log(error))
+   }
     return (
         <CardHobit>
             <div>
-                <h3>Ler 1 capítulo de livro</h3>
+                <h3>{elements.name}</h3>
                 <BoxDaysWeek>
-                    {week.map((d) => <p>{d}</p>)}
+                    {week.map((d, id) => <button className={elements.days.includes(id)? 'selected': 'available'}>{d}</button>)}
                 </BoxDaysWeek>
             </div>
-            <AiOutlineDelete fontSize="24px" />
+            <AiOutlineDelete onClick={()=>isDelete(elements.id)} fontSize="24px" />
         </CardHobit>
     )
 }
@@ -18,17 +32,22 @@ const BoxDaysWeek = styled.div`
     display: flex;
     gap: 4px;
     margin-bottom: 29px;
-    p{
+    button{
         width: 30px;
         height: 30px;
 
-        background: #FFFFFF;
         border: 1px solid #D5D5D5;
         border-radius: 5px;
         font-style: normal;
         font-weight: 400;
-        font-size: 19.976px;
-
+        font-size: 19.976px; 
+    }
+    .selected{
+        background-color: #000;
+        color: #fff;
+    }
+    .available{
+        background-color:#fff;
         color: #DBDBDB;
     }
 `

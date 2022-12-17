@@ -31,7 +31,8 @@ export default function LoginPage() {
         })
         promise.catch((error)=>{
             setDisable(false)
-            alert('ERROR: ' + error)
+            setDots(false)
+            alert('ERROR: ' + error.response.data.message)
         })
     }
 

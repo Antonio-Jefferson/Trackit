@@ -2,12 +2,13 @@ import styled from "styled-components"
 import logoHeader from "../assets/TrackIt.png"
 import { useContext } from "react"
 import InformationUser from "../contexts/auth"
+import { Link } from "react-router-dom"
 export default function Header() {
     const {info} = useContext(InformationUser)
     return (
         <HeaderPage>
             <div>
-                <img src={logoHeader} />
+                <Link to={'/'}><img src={logoHeader} /></Link>
                 <Profile>
                     <img src={info.image} />
                 </Profile>

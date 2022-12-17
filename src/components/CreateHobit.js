@@ -1,11 +1,11 @@
 import { AiFillPlusSquare} from "react-icons/ai";
 import styled from "styled-components";
-export default function CreateHobit(){
+export default function CreateHobit({renderCreteHabit}){
     return(
         <CreateHobitPage>
             <h2>Meus hábitos</h2>
 
-            <AiFillPlusSquare fontSize="35px" color="#52B6FF"/>
+            <AiFillPlusSquare onClick={renderCreteHabit} fontSize="35px" color="#52B6FF"/>
         </CreateHobitPage>
 
     )
