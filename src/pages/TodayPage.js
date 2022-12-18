@@ -30,7 +30,7 @@ export default function TodayPage() {
                     <p>Nenhum hábito concluído ainda</p>
                 </div>
                 <div>
-                   {myHabits.map((e)=>  <CardHobit key={e.id} status={status} setStatus={setStatus} informations={e} /> )}
+                   {myHabits.map((e)=>  <CardHobit key={e.id} myHabits={myHabits} status={status} setStatus={setStatus} informations={e} /> )}
                 </div>
             </MainToday>
             <Footer />

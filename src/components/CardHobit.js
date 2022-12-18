@@ -4,9 +4,11 @@ import { useContext, useState } from "react";
 import InformationUser from "../contexts/auth";
 import axios from "axios";
 
-export default function CardHobit({ informations, setStatus, status }) {
-    const [colorConcluido, setColorConcluido] = useState('#EBEBEB')
+export default function CardHobit({ informations, setStatus, status, myHabits }) {
+    const [colorConcluido, setColorConcluido] = useState(informations.done === true? "#8FC549":'#EBEBEB')
     const { info } = useContext(InformationUser)
+    const total = myHabits.length / 100
+    console.log(total)
     const concluido = (id) => {
         if (colorConcluido == '#8FC549') {
             setColorConcluido('#EBEBEB')
