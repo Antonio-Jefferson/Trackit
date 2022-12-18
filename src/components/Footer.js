@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import CircularProgress from "./CircularProgress"
 
 export default function Footer(){
 
     return(
         <BoxFooter>
             <Link to={'/habitos'}><p>Hábitos</p></Link>
-            <div><Link to={'/hoje'}><span>Hoje</span></Link></div>
+            <div><Link to={'/hoje'}><CircularProgress/></Link></div>
             <Link to={'/historico'}><p>Histórico</p></Link>
         </BoxFooter>
     )

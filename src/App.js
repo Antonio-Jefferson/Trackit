@@ -12,7 +12,6 @@ import { useState } from "react";
 
 function App() {
   const [info, setInfo] = useState({})
-  console.log("Esse aqui é o token " + info.token)
   return (
     <Conteiner>
       <InformationUser.Provider value={{setInfo, info}}>

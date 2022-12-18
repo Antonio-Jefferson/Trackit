@@ -9,15 +9,15 @@ export default function MainHobits() {
     const [idsWeekDay, setIdsWeekDay] = useState([])
     const [listHabits, setListHabits] = useState([])
     const [rotate, setRotate] = useState(false)
-    console.log(listHabits)
 
     function renderCreteHabit(){
         setRender(true)
+       
     }
     return (
         <>
             <CreateHobit renderCreteHabit={renderCreteHabit} />
-            {render? <Create rotate={rotate} setRotate={setRotate} setListHabits={setListHabits} idsWeekDay={idsWeekDay} setIdsWeekDay={setIdsWeekDay} setRender={setRender} /> : ''}
+            {render? <Create rotate={rotate} setRotate={setRotate} setListHabits={setListHabits} idsWeekDay={idsWeekDay} setIdsWeekDay={setIdsWeekDay} setRender={setRender} render={render} /> : ''}
             {listHabits.length !== 0? (listHabits.map((e)=> <Hobit setRotate={setRotate} rotate={rotate} elements={e}/>)): <Paragrafo>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Paragrafo> }
         </>
     )

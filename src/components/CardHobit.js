@@ -1,17 +1,55 @@
 import styled from "styled-components"
-import {AiFillCheckSquare} from "react-icons/ai";
+import { AiFillCheckSquare } from "react-icons/ai";
+import { useContext, useState } from "react";
+import InformationUser from "../contexts/auth";
+import axios from "axios";
 
-export default function CardHobit() {
+export default function CardHobit({ informations, setStatus, status }) {
+    const [colorConcluido, setColorConcluido] = useState('#EBEBEB')
+    const { info } = useContext(InformationUser)
+    const concluido = (id) => {
+        if (colorConcluido == '#8FC549') {
+            setColorConcluido('#EBEBEB')
+            habitsUncheck(id)
+        } else {
+            setColorConcluido('#8FC549')
+            habitsConcluidos(id)
+        }
+    }
+    const habitsConcluidos = (idConcluido) => {
+        const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idConcluido}/check`
+        const config = {
+            headers: { Authorization: `Bearer ${info.token}` }
+        }
+        const promise = axios.post(url, {}, config)
+        promise.then((succss) => {
+            console.log(console.log('Sucesso'))
+            setStatus(!status)
+        })
+        promise.catch((error) => console.log(error))
+    }
+    const habitsUncheck = (idUncheck) => {
+        const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idUncheck}/uncheck`
+        const config = {
+            headers: { Authorization: `Bearer ${info.token}` }
+        }
+        const promise = axios.post(url, {}, config)
+        promise.then((succss) => {
+            console.log(console.log('Sucesso'))
+            setStatus(!status)
+        })
+        promise.catch((error) => console.log("error: " + error))
+    }
     return (
-        <CardToday>
+        <CardToday onClick={() => concluido(informations.id)}>
             <div>
-                <h4>Ler 1 capítulo de livro</h4>
+                <h4>{informations.name}</h4>
                 <div>
-                    Sequência atual: 3 dias <br />
-                    Seu recorde: 5 dias
+                    Sequência atual: {informations.currentSequence} <br />
+                    Seu recorde: {informations.highestSequence}
                 </div>
             </div>
-            <AiFillCheckSquare fontSize="69px" color="#8FC549" />
+            <AiFillCheckSquare fontSize="69px" color={colorConcluido} />
         </CardToday>
     )
 }

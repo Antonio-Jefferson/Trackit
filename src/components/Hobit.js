@@ -43,7 +43,7 @@ const BoxDaysWeek = styled.div`
         font-size: 19.976px; 
     }
     .selected{
-        background-color: #000;
+        background-color: #CFCFCF;
         color: #fff;
     }
     .available{

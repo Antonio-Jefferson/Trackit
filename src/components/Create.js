@@ -27,6 +27,7 @@ export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHa
         }
 
     }
+   
     useEffect(() => {
         const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
         const config = { headers: { Authorization: `Bearer ${info.token}` } }
@@ -46,9 +47,8 @@ export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHa
                 name: nameHabit,
                 days: idsWeekDay
             }
-            const config = {
-                headers: { Authorization: `Bearer ${info.token}` }
-            }
+            console.log(idsWeekDay)
+            const config = {headers: { Authorization: `Bearer ${info.token}` }}
             const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
             const promise = axios.post(URL, objHabit, config);
             promise.then((succss) => {
@@ -64,7 +64,6 @@ export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHa
         } else {
             alert('Por favor prencha todos os campos')
         }
-
     }
 
     return (
@@ -133,7 +132,7 @@ const BoxDaysWeek = styled.div`
     gap: 4px;
     margin-bottom: 29px;
     .selected{
-        background-color: #000;
+        background-color: #CFCFCF;
         color: #fff;
     }
     .available{
