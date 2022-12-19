@@ -6,6 +6,8 @@ import Footer from "../components/Footer"
 import { useContext, useEffect, useState } from "react"
 import InformationUser from "../contexts/auth"
 import axios from "axios"
+import dayjs from 'dayjs'
+require("dayjs/locale/pt-br")
 export default function TodayPage() {
     const [myHabits, setMyHabits] = useState([])
     const [status, setStatus] = useState(false)
@@ -20,13 +22,15 @@ export default function TodayPage() {
         })
         promise.catch((error) => console.log(error))
     }, [status])
-  
+
+    let dat = dayjs().locale('pt-br').format(`dddd, DD/MM`);
+    let date = (dat[0].toUpperCase() + dat.slice(1)).replace("-feira", "")
     return (
         <>
             <Header />
             <MainToday>
                 <div>
-                    <h3>Segunda, 17/05</h3>
+                    <h3>{date}</h3>
                     <p>Nenhum hábito concluído ainda</p>
                 </div>
                 <div>

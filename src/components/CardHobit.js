@@ -7,8 +7,8 @@ import axios from "axios";
 export default function CardHobit({ informations, setStatus, status, myHabits }) {
     const [colorConcluido, setColorConcluido] = useState(informations.done === true? "#8FC549":'#EBEBEB')
     const { info } = useContext(InformationUser)
-    const total = myHabits.length / 100
-    console.log(total)
+    const {porcentagemHabits, setPorcentagemhabits} = useContext(InformationUser)
+    let total =  100/myHabits.length
     const concluido = (id) => {
         if (colorConcluido == '#8FC549') {
             setColorConcluido('#EBEBEB')
@@ -25,8 +25,7 @@ export default function CardHobit({ informations, setStatus, status, myHabits })
         }
         const promise = axios.post(url, {}, config)
         promise.then((succss) => {
-            console.log(console.log('Sucesso'))
-            setStatus(!status)
+            setStatus(!status) 
         })
         promise.catch((error) => console.log(error))
     }
@@ -37,7 +36,6 @@ export default function CardHobit({ informations, setStatus, status, myHabits })
         }
         const promise = axios.post(url, {}, config)
         promise.then((succss) => {
-            console.log(console.log('Sucesso'))
             setStatus(!status)
         })
         promise.catch((error) => console.log("error: " + error))

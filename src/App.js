@@ -12,9 +12,11 @@ import { useState } from "react";
 
 function App() {
   const [info, setInfo] = useState({})
+  const [porcentagemHabits, setPorcentagemhabits] = useState(0)
+  console.log('esse aqui é do App ' + porcentagemHabits)
   return (
     <Conteiner>
-      <InformationUser.Provider value={{setInfo, info}}>
+      <InformationUser.Provider value={{setInfo, info, porcentagemHabits, setPorcentagemhabits}}>
         <GlobalStyled />
         <BrowserRouter>
           <Routes>
