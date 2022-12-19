@@ -9,6 +9,9 @@ export default function CardHobit({ informations, setStatus, status, myHabits })
     const { info } = useContext(InformationUser)
     const {porcentagemHabits, setPorcentagemhabits} = useContext(InformationUser)
     let total =  100/myHabits.length
+
+    //console.log(total)
+    //console.log((total + total))
     const concluido = (id) => {
         if (colorConcluido == '#8FC549') {
             setColorConcluido('#EBEBEB')
@@ -26,6 +29,7 @@ export default function CardHobit({ informations, setStatus, status, myHabits })
         const promise = axios.post(url, {}, config)
         promise.then((succss) => {
             setStatus(!status) 
+            setPorcentagemhabits(porcentagemHabits + total)
         })
         promise.catch((error) => console.log(error))
     }
@@ -37,16 +41,17 @@ export default function CardHobit({ informations, setStatus, status, myHabits })
         const promise = axios.post(url, {}, config)
         promise.then((succss) => {
             setStatus(!status)
+            setPorcentagemhabits(porcentagemHabits - total)
         })
         promise.catch((error) => console.log("error: " + error))
     }
     return (
-        <CardToday onClick={() => concluido(informations.id)}>
+        <CardToday informations={informations} onClick={() => concluido(informations.id)}>
             <div>
                 <h4>{informations.name}</h4>
                 <div>
-                    Sequência atual: {informations.currentSequence} <br />
-                    Seu recorde: {informations.highestSequence}
+                    Sequência atual:<span> {informations.currentSequence}</span> <br />
+                    Seu recorde:<span> {informations.highestSequence}</span>
                 </div>
             </div>
             <AiFillCheckSquare fontSize="69px" color={colorConcluido} />
@@ -69,6 +74,9 @@ const CardToday = styled.div`
         font-weight: 400;
         font-size: 12.976px;
         color: #666666;
+    }
+    span{
+        color: ${({informations})=> informations.currentSequence >= informations.highestSequence & informations.currentSequence !== 0? "#8FC549" : '#666666'};
     }
     h4{
         font-weight: 400;

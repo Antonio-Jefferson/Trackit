@@ -11,8 +11,7 @@ require("dayjs/locale/pt-br")
 export default function TodayPage() {
     const [myHabits, setMyHabits] = useState([])
     const [status, setStatus] = useState(false)
-    const { info } = useContext(InformationUser)
-
+    const { info, porcentagemHabits } = useContext(InformationUser)
     useEffect(() => {
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today'
         const config = { headers: { Authorization: `Bearer ${info.token}` } }
@@ -28,10 +27,10 @@ export default function TodayPage() {
     return (
         <>
             <Header />
-            <MainToday>
+            <MainToday porcentagemHabits={porcentagemHabits}>
                 <div>
                     <h3>{date}</h3>
-                    <p>Nenhum hábito concluído ainda</p>
+                    <p>{porcentagemHabits > 0? `${Math.trunc(porcentagemHabits)}% dos hábitos concluídos`: 'Nenhum hábito concluído ainda'}</p>
                 </div>
                 <div>
                    {myHabits.map((e)=>  <CardHobit key={e.id} myHabits={myHabits} status={status} setStatus={setStatus} informations={e} /> )}
@@ -57,7 +56,7 @@ const MainToday = styled.div`
         padding-left:12px ;
         font-weight: 400;
         font-size: 17.976px;
-        color: #BABABA;
+        color:${({porcentagemHabits})=> porcentagemHabits > 0? "#8FC549": "#BABABA"} ;
         margin-bottom: 28px 
     }
   
