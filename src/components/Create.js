@@ -68,11 +68,11 @@ export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHa
                 disabled={disable}
             />
             <BoxDaysWeek>
-                {week.map((d, id) => <button data-test="habit-day" className={idsWeekDay.includes(id) ? 'selected' : 'available'} onClick={() => selectedWeekDay(id)} key={id} >{d}</button>)}
+                {week.map((d, id) => <button data-test="habit-day" disabled={disable} className={idsWeekDay.includes(id) ? 'selected' : 'available'} onClick={() => selectedWeekDay(id)} key={id} >{d}</button>)}
             </BoxDaysWeek>
             <BoxBtns>
-                <button data-test="habit-create-cancel-btn" onClick={cancel}>Cancelar</button>
-                <button data-test="habit-create-save-btn" onClick={registrationHabit}>{dots ? <ThreeDots color="#fff" width="40" height="20" /> : 'Salvar'}</button>
+                <button disabled={disable} data-test="habit-create-cancel-btn" onClick={cancel}>Cancelar</button>
+                <button disabled={disable} data-test="habit-create-save-btn" onClick={registrationHabit}>{dots ? <ThreeDots color="#fff" width="40" height="20" /> : 'Salvar'}</button>
             </BoxBtns>
         </ConteinerCreate>
     )

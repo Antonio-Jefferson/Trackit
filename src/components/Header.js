@@ -8,9 +8,9 @@ export default function Header() {
     return (
         <HeaderPage data-test="header" >
             <div>
-                <Link to={'/'}><img src={logoHeader} /></Link>
+                <Link to={'/'}><img src={logoHeader} alt="logo" /></Link>
                 <Profile>
-                    <img src={info.image} />
+                    <img src={info.image} alt="avatar"/>
                 </Profile>
             </div>
         </HeaderPage>
