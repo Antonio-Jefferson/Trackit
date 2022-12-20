@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 export default function Header() {
     const {info} = useContext(InformationUser)
     return (
-        <HeaderPage>
+        <HeaderPage data-test="header" >
             <div>
                 <Link to={'/'}><img src={logoHeader} /></Link>
                 <Profile>
@@ -21,6 +21,7 @@ const HeaderPage = styled.div`
     position: fixed;
     top: 0px;
     right: 0px;
+    z-index: 4;
     width: 100%;
     height: 70px;
     background: #126BA5;

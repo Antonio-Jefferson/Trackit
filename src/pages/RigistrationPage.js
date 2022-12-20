@@ -15,22 +15,22 @@ export default function RigistrationPage() {
         image: '',
         password: ''
     })
-  
+
 
     function creteAccount(event, key) {
         setRegistration({ ...registration, [key]: event.target.value })
     }
-    
+
     function rigistrationAccount(e) {
         e.preventDefault()
         setDisable(true)
         setDots(true)
         const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
         const promise = axios.post(url, registration)
-        promise.then(() => 
+        promise.then(() =>
             navegation('/')
         )
-        promise.catch((error)=>{
+        promise.catch((error) => {
             alert('ERROR: ' + error.response.data.message)
             setDisable(false)
             setDots(false)
@@ -42,6 +42,7 @@ export default function RigistrationPage() {
             <img src={logo} />
             <FormeLogin onSubmit={(e) => rigistrationAccount(e)}>
                 <input
+                    data-test="email-input"
                     type="email"
                     placeholder="email"
                     onChange={(event) => creteAccount(event, 'email')}
@@ -51,6 +52,7 @@ export default function RigistrationPage() {
                 />
 
                 <input
+                    data-test="password-input"
                     type="password"
                     placeholder="senha"
                     onChange={(event) => creteAccount(event, 'password')}
@@ -59,6 +61,7 @@ export default function RigistrationPage() {
                     required
                 />
                 <input
+                    data-test="user-name-input"
                     type="text"
                     placeholder="nome"
                     onChange={(event) => creteAccount(event, 'name')}
@@ -67,6 +70,7 @@ export default function RigistrationPage() {
                     required
                 />
                 <input
+                    data-test="user-image-input"
                     type="url"
                     placeholder="foto"
                     onChange={(event) => creteAccount(event, 'image')}
@@ -74,9 +78,9 @@ export default function RigistrationPage() {
                     disabled={disable}
                     required
                 />
-                  <button disabled={disable} type="submit" > <Loading>{dots? <ThreeDots color="#fff"  height="20"/> : 'Cadastrar'}</Loading></button>
+                <button data-test="signup-btn" disabled={disable} type="submit" > <Loading>{dots ? <ThreeDots color="#fff" height="20" /> : 'Cadastrar'}</Loading></button>
             </FormeLogin >
-            <Link to={'/'}><p>Já tem uma conta? Faça login!</p></Link>
+            <Link data-test="login-link" to={'/'}><p>Já tem uma conta? Faça login!</p></Link>
         </Login>
     )
 }
@@ -108,7 +112,7 @@ const FormeLogin = styled.form`
         border-radius: 5px;
     }
 `
-const Loading =styled.div`
+const Loading = styled.div`
     position: absolute;
     left: 105px;
     top: 8px;

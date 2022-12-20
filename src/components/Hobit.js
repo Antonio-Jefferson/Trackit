@@ -7,24 +7,28 @@ import InformationUser from "../contexts/auth";
 
 export default function Hobit({elements, setRotate, rotate}) {
     const {info} = useContext(InformationUser)
+
    function isDelete(isID){
-    const config = {
-        headers: { Authorization: `Bearer ${info.token}` }
+    if(window.confirm("Deseja apagar esse hábito?")){
+        const config = {
+            headers: { Authorization: `Bearer ${info.token}` }
+        }
+        const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${isID}`
+        const promise = axios.delete(url, config)
+        promise.then((succss)=> setRotate(!rotate))
+        promise.catch((error)=> console.log(error))
+       }
     }
-    const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${isID}`
-    const promise = axios.delete(url, config)
-    promise.then((succss)=> setRotate(!rotate))
-    promise.catch((error)=> console.log(error))
-   }
+   
     return (
-        <CardHobit>
+        <CardHobit data-test="habit-container">
             <div>
-                <h3>{elements.name}</h3>
+                <h3 data-test="habit-name" >{elements.name}</h3>
                 <BoxDaysWeek>
-                    {week.map((d, id) => <button className={elements.days.includes(id)? 'selected': 'available'}>{d}</button>)}
+                    {week.map((d, id) => <button data-test="habit-day" className={elements.days.includes(id)? 'selected': 'available'}>{d}</button>)}
                 </BoxDaysWeek>
             </div>
-            <AiOutlineDelete onClick={()=>isDelete(elements.id)} fontSize="24px" />
+            <AiOutlineDelete data-test="habit-delete-btn" onClick={()=>isDelete(elements.id)} fontSize="24px" />
         </CardHobit>
     )
 }

@@ -5,7 +5,7 @@ export default function CreateHobit({renderCreteHabit}){
         <CreateHobitPage>
             <h2>Meus hábitos</h2>
 
-            <AiFillPlusSquare onClick={renderCreteHabit} fontSize="35px" color="#52B6FF"/>
+            <AiFillPlusSquare data-test="habit-create-btn" onClick={renderCreteHabit} fontSize="35px" color="#52B6FF"/>
         </CreateHobitPage>
 
     )

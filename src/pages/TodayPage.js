@@ -29,10 +29,10 @@ export default function TodayPage() {
             <Header />
             <MainToday porcentagemHabits={porcentagemHabits}>
                 <div>
-                    <h3>{date}</h3>
-                    <p>{porcentagemHabits > 0? `${Math.trunc(porcentagemHabits)}% dos hábitos concluídos`: 'Nenhum hábito concluído ainda'}</p>
+                    <h3 data-test="today">{date}</h3>
+                    <p data-test="today-counter">{porcentagemHabits > 0? `${Math.trunc(porcentagemHabits)}% dos hábitos concluídos`: 'Nenhum hábito concluído ainda'}</p>
                 </div>
-                <div>
+                <div data-test="today-habit-container">
                    {myHabits.map((e)=>  <CardHobit key={e.id} myHabits={myHabits} status={status} setStatus={setStatus} informations={e} /> )}
                 </div>
             </MainToday>
@@ -44,7 +44,7 @@ export default function TodayPage() {
 const MainToday = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 98px;
+    margin: 98px 0px 100px 0px;
     text-align: justify;
     h3{
         padding-left:12px ;

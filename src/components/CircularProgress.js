@@ -8,7 +8,7 @@ export default function CircularProgress() {
     return (
         <CircularProgressbar
         value={porcentagemHabits.toFixed(0)}
-        text={porcentagemHabits > 0? `${porcentagemHabits.toFixed(0)}%` : "Hoje"}
+        text={"Hoje"}
         background
         backgroundPadding={6}
         styles={buildStyles({

@@ -5,10 +5,10 @@ import CircularProgress from "./CircularProgress"
 export default function Footer(){
 
     return(
-        <BoxFooter>
-            <Link to={'/habitos'}><p>Hábitos</p></Link>
-            <div><Link to={'/hoje'}><CircularProgress/></Link></div>
-            <Link to={'/historico'}><p>Histórico</p></Link>
+        <BoxFooter data-test="menu">
+            <Link data-test="habit-link" to={'/habitos'}><p>Hábitos</p></Link>
+            <div data-test="today-link" ><Link to={'/hoje'}><CircularProgress/></Link></div>
+            <Link data-test="history-link" to={'/historico'}><p>Histórico</p></Link>
         </BoxFooter>
     )
 }

@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { AiFillCheckSquare } from "react-icons/ai";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import InformationUser from "../contexts/auth";
 import axios from "axios";
 
@@ -9,9 +9,12 @@ export default function CardHobit({ informations, setStatus, status, myHabits })
     const { info } = useContext(InformationUser)
     const {porcentagemHabits, setPorcentagemhabits} = useContext(InformationUser)
     let total =  100/myHabits.length
-
-    //console.log(total)
-    //console.log((total + total))
+    useEffect(()=>{
+        const isConcluidos = myHabits.filter((e)=> e.done === true)
+        const marcados = isConcluidos.length * total
+        setPorcentagemhabits(marcados)
+    },[])
+    
     const concluido = (id) => {
         if (colorConcluido == '#8FC549') {
             setColorConcluido('#EBEBEB')
@@ -48,13 +51,13 @@ export default function CardHobit({ informations, setStatus, status, myHabits })
     return (
         <CardToday informations={informations} onClick={() => concluido(informations.id)}>
             <div>
-                <h4>{informations.name}</h4>
+                <h4 data-test="today-habit-name" >{informations.name}</h4>
                 <div>
-                    Sequência atual:<span> {informations.currentSequence}</span> <br />
-                    Seu recorde:<span> {informations.highestSequence}</span>
+                    Sequência atual:<span data-test="today-habit-sequence" > {informations.currentSequence} <span>{ informations.currentSequence > 1? 'dias': 'dia'}</span></span> <br />
+                    Seu recorde:<span data-test="today-habit-record"> {informations.highestSequence} <span>{informations.highestSequence > 1? 'dias': 'dia'}</span></span>
                 </div>
             </div>
-            <AiFillCheckSquare fontSize="69px" color={colorConcluido} />
+            <AiFillCheckSquare data-test="today-habit-check-btn" fontSize="69px" color={colorConcluido} />
         </CardToday>
     )
 }

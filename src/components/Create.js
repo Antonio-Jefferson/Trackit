@@ -6,16 +6,13 @@ import axios from 'axios'
 import InformationUser from "../contexts/auth";
 import { ThreeDots } from 'react-loader-spinner'
 
-export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHabits, setRotate, rotate}) {
-    const [nameHabit, setNameHabit] = useState('')
+export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHabits, setRotate, rotate }) {
+    const [nameHabit, setNameHabit] = useState()
     const [disable, setDisable] = useState(false)
     const { info } = useContext(InformationUser)
     const [dots, setDots] = useState(false)
 
-
-    function cancel() {
-        setRender(false)
-    }
+    
 
     function selectedWeekDay(id) {
         if (idsWeekDay.includes(id)) {
@@ -27,17 +24,6 @@ export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHa
         }
 
     }
-   
-    useEffect(() => {
-        const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
-        const config = { headers: { Authorization: `Bearer ${info.token}` } }
-        const promise = axios.get(url, config);
-        promise.then((succss) => {
-            console.log(succss.data)
-            setListHabits(succss.data)
-        })
-        promise.catch((error) => console.log('Erro: ' + error))
-    }, [rotate])
 
     function registrationHabit() {
         if (idsWeekDay.length !== 0 && nameHabit !== "") {
@@ -48,13 +34,13 @@ export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHa
                 days: idsWeekDay
             }
             console.log(idsWeekDay)
-            const config = {headers: { Authorization: `Bearer ${info.token}` }}
+            const config = { headers: { Authorization: `Bearer ${info.token}` } }
             const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits'
             const promise = axios.post(URL, objHabit, config);
             promise.then((succss) => {
                 setDisable(false)
                 setDots(false)
-                setNameHabit('')
+                setRender(false)
                 setIdsWeekDay([])
                 setRotate(!rotate)
             })
@@ -66,9 +52,15 @@ export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHa
         }
     }
 
+    function cancel() {
+        setRender(false)
+    }
+
+
     return (
-        <ConteinerCreate>
+        <ConteinerCreate data-test="habit-create-container">
             <input
+                data-test="habit-name-input"
                 type="text"
                 placeholder="nome do hábito"
                 onChange={(e) => setNameHabit(e.target.value)}
@@ -76,11 +68,11 @@ export default function Create({ idsWeekDay, setIdsWeekDay, setRender, setListHa
                 disabled={disable}
             />
             <BoxDaysWeek>
-                {week.map((d, id) => <button className={idsWeekDay.includes(id) ? 'selected' : 'available'} onClick={() => selectedWeekDay(id)} key={id} >{d}</button>)}
+                {week.map((d, id) => <button data-test="habit-day" className={idsWeekDay.includes(id) ? 'selected' : 'available'} onClick={() => selectedWeekDay(id)} key={id} >{d}</button>)}
             </BoxDaysWeek>
             <BoxBtns>
-                <button onClick={cancel}>Cancelar</button>
-                <button onClick={registrationHabit}>{dots ? <ThreeDots color="#fff" width="40" height="20" /> : 'Salvar'}</button>
+                <button data-test="habit-create-cancel-btn" onClick={cancel}>Cancelar</button>
+                <button data-test="habit-create-save-btn" onClick={registrationHabit}>{dots ? <ThreeDots color="#fff" width="40" height="20" /> : 'Salvar'}</button>
             </BoxBtns>
         </ConteinerCreate>
     )

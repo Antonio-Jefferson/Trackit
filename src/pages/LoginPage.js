@@ -9,7 +9,7 @@ import InformationUser from "../contexts/auth"
 export default function LoginPage() {
     const navegation = useNavigate()
     const [disable, setDisable] = useState(false)
-    const {setInfo} = useContext(InformationUser)
+    const { setInfo } = useContext(InformationUser)
     const [dots, setDots] = useState(false)
 
     const [login, setLogin] = useState({
@@ -25,15 +25,18 @@ export default function LoginPage() {
         setDots(true)
         const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
         const promise = axios.post(url, login)
-        promise.then((success)=>{
+        promise.then((success) => {
             navegation('/hoje')
             setInfo(success.data)
         })
-        promise.catch((error)=>{
-            setDisable(false)
+        promise.catch((error) => {
             setDots(false)
             alert('ERROR: ' + error.response.data.message)
         })
+        promise.finally(()=>{ 
+             setDots(false) 
+             setDisable(false)
+            } )
     }
 
     return (
@@ -41,25 +44,27 @@ export default function LoginPage() {
             <img src={logo} />
             <FormeLogin onSubmit={(e) => LogarUser(e)} >
                 <input
+                    data-test="email-input"
                     type="email"
                     placeholder="email"
-                    onChange={(e)=> dadosUser(e, 'email')}
+                    onChange={(e) => dadosUser(e, 'email')}
                     value={login.email}
                     disabled={disable}
                     required
                 />
 
                 <input
+                    data-test="password-input"
                     type="password"
                     placeholder="senha"
-                    onChange={(e)=> dadosUser(e, 'password')}
+                    onChange={(e) => dadosUser(e, 'password')}
                     value={login.password}
                     disabled={disable}
                     required
                 />
-                <button disabled={disable} type="submit" > <Loading>{dots? <ThreeDots color="#fff"  height="20"/> : 'Entrar'}</Loading></button>
+                <button  data-test="login-btn"  disabled={disable} type="submit" > <Loading>{dots ? <ThreeDots color="#fff" height="20" /> : 'Entrar'}</Loading></button>
             </FormeLogin >
-            <Link to={'/cadastro'}><p>Não tem uma conta? Cadastre-se!</p></Link>
+            <Link data-test="signup-link" to={'/cadastro'}><p>Não tem uma conta? Cadastre-se!</p></Link>
         </Login>
     )
 }
@@ -92,7 +97,7 @@ const FormeLogin = styled.form`
         border-radius: 5px;
     }
 `
-const Loading =styled.div`
+const Loading = styled.div`
     position: absolute;
     left: 115px;
     top: 8px;
