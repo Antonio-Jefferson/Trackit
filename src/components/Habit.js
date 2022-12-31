@@ -21,7 +21,7 @@ export default function Hobit({elements, setRotate, rotate}) {
     }
    
     return (
-        <CardHobit data-test="habit-container">
+        <CardHabit data-test="habit-container">
             <div>
                 <h3 data-test="habit-name" >{elements.name}</h3>
                 <BoxDaysWeek>
@@ -29,7 +29,7 @@ export default function Hobit({elements, setRotate, rotate}) {
                 </BoxDaysWeek>
             </div>
             <AiOutlineDelete data-test="habit-delete-btn" onClick={()=>isDelete(elements.id)} fontSize="24px" />
-        </CardHobit>
+        </CardHabit>
     )
 }
 const BoxDaysWeek = styled.div`
@@ -56,7 +56,7 @@ const BoxDaysWeek = styled.div`
     }
 `
 
-const CardHobit = styled.div`
+const CardHabit = styled.div`
     display: flex;
     justify-content: space-between;
     width: 340px;

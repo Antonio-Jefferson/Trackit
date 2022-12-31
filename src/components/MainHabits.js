@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import CreateHobit from "./CreateHobit";
+import CreateHobit from "./CreateHabit";
 import Create from "./Create";
 import { useState, useEffect, useContext } from "react";
-import Hobit from "./Hobit";
+import Hobit from "./Habit";
 import axios from 'axios'
 import InformationUser from "../contexts/auth";
 
-export default function MainHobits() {
+export default function MainHabits() {
     const [render, setRender] = useState(false)
     const [idsWeekDay, setIdsWeekDay] = useState([])
     const [listHabits, setListHabits] = useState([])

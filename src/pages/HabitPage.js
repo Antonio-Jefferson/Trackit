@@ -1,14 +1,14 @@
 
 import Header from "../components/Header";
-import MainHobits from "../components/MainHobits";
+import MainHabits from "../components/MainHabits";
 import Footer from "../components/Footer"
 
-export default function HobitPage() {
+export default function HabitPage() {
     
     return (
         <>
             <Header />
-            <MainHobits />
+            <MainHabits />
             <Footer/>
         </>
     )
