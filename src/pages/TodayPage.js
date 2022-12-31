@@ -1,7 +1,7 @@
 
 import styled from "styled-components"
-import CardHobit from "../components/CardHobit"
-import Header from "../components/Header"
+import CardHabit from "../components/CardHabit"
+import Header from"../components/Header"
 import Footer from "../components/Footer"
 import { useContext, useEffect, useState } from "react"
 import InformationUser from "../contexts/auth"
@@ -33,7 +33,7 @@ export default function TodayPage() {
                     <p data-test="today-counter">{porcentagemHabits > 0? `${Math.trunc(porcentagemHabits)}% dos hábitos concluídos`: 'Nenhum hábito concluído ainda'}</p>
                 </div>
                 <div data-test="today-habit-container">
-                   {myHabits.map((e)=>  <CardHobit key={e.id} myHabits={myHabits} status={status} setStatus={setStatus} informations={e} /> )}
+                   {myHabits.map((e)=>  <CardHabit key={e.id} myHabits={myHabits} status={status} setStatus={setStatus} informations={e} /> )}
                 </div>
             </MainToday>
             <Footer />

@@ -3,7 +3,7 @@ import GlobalStyled from "./GlobalStyled";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from "./pages/LoginPage"
 import RigistrationPage from "./pages/RigistrationPage"
-import HobitPage from "./pages/HobitPage"
+import HabitPage from "./pages/HabitPage"
 import TodayPage from "./pages/TodayPage"
 import HistoricPage from "./pages/HistoricPage"
 import InformationUser from "./contexts/auth";
@@ -21,7 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LoginPage />}></Route>
             <Route path="/cadastro" element={<RigistrationPage />}></Route>
-            <Route path="/habitos" element={<HobitPage />}></Route>
+            <Route path="/habitos" element={<HabitPage />}></Route>
             <Route path="/hoje" element={<TodayPage />}></Route>
             <Route path="/historico" element={<HistoricPage />}></Route>
           </Routes>
