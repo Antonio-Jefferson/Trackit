@@ -1,5 +1,5 @@
 # Track-it
-### trackIt foi desenvolvido na inteção de ajudar as pessoas na criação de habitos no seu dia a dia!
+#### TrackIt foi desenvolvido na inteção de ajudar as pessoas na criação de habitos no seu dia a dia!
 
 # Tecnologias usadas 
 - html
